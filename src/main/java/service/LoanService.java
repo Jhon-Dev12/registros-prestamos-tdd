@@ -22,6 +22,8 @@ public class LoanService {
         if (creditScoreService.getScore(customer) < 600) {
             return false;
         }
+
+
         return true;
     }
 }

@@ -41,4 +41,17 @@ class LoanServiceTest {
         assertFalse(result, "El préstamo debería ser rechazado por score bajo (< 600)");
     }
 
+    @Test
+    @DisplayName("Debería rechazar el préstamo si el cliente tiene deudas pendientes")
+    void test2_rejectWhenHasDebts() {
+        // Escenario: Score OK (700) pero TIENE deudas
+        Customer customer = new Customer("2", 700, 4000);
+        when(creditScoreService.getScore(customer)).thenReturn(700);
+        when(debtService.hasDebts(customer)).thenReturn(true);
+
+        boolean result = loanService.registerLoan(customer, 2000, 12);
+
+        assertFalse(result, "Debería rechazar por deudas pendientes");
+    }
+
 }
