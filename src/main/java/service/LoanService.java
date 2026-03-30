@@ -19,6 +19,9 @@ public class LoanService {
 
 
     public boolean registerLoan(Customer customer, double amount, int months) {
-        return  true;
+        if (creditScoreService.getScore(customer) < 600) {
+            return false;
+        }
+        return true;
     }
 }
